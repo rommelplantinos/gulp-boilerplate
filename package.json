@@ -13,10 +13,10 @@
 		"url": "http://link-to-your-git-repo.com"
 	},
 	"boilerplate": {
-		"version": "2.2.6",
-		"author": "Chris Ferdinandi",
-		"url": "https://gomakethings.com",
-		"repo": "http://github.com/cferdinandi/gulp-boilerplate"
+		"version": "2020.0.0",
+		"author": "Rommel L. Plantinos",
+		"url": "",
+		"repo": "https://github.com/rommelplantinos/gulp-boilerplate"
 	},
 	"browserslist": [
 		"last 2 versions",

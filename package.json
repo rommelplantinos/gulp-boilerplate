@@ -1,19 +1,19 @@
 {
-	"name": "project-name",
-	"version": "0.0.1",
-	"description": "A description for your project.",
-	"main": "./dist/your-main-js-file.js",
+	"name": "Project-Name",
+	"version": "2020.0.0-pre",
+	"description": "Description",
+	"main": "./dist/js/index.js",
 	"author": {
-		"name": "YOUR NAME",
-		"url": "http://link-to-your-website.com"
+		"name": "Your Full Name",
+		"url": "Your website"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "http://link-to-your-git-repo.com"
+		"url": "Project web page"
 	},
 	"boilerplate": {
-		"version": "2020.0.0",
+		"version": "2020.0.0-pre",
 		"author": "Rommel L. Plantinos",
 		"url": "",
 		"repo": "https://github.com/rommelplantinos/gulp-boilerplate"

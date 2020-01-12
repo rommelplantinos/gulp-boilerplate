@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Portions Copyright (c) 2020 Rommel Plantinos
+Portions Copyright (c) 2020 Rommel Plantinos 
 Portions Copyright (c) Go Make Things, LLC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

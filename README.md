@@ -20,7 +20,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/). Uses G
 
 ### Dependencies
 
-*__Note:__ Whether you've previously installed Gulp globally or not, run **`npm rm --global gulp`** anyway and it will remove it if it if installed. [Reasons and details here.](https://medium.com/gulpjs/gulp-sips-command-line-interface-e53411d4467)*
+*__Note:__ Whether you've previously installed Gulp globally or not, run **`npm rm --global gulp`** anyway and it will remove it if installed. [Reasons and details here.](https://medium.com/gulpjs/gulp-sips-command-line-interface-e53411d4467)*
 
 Make sure these are installed first.
 

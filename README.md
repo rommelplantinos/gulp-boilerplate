@@ -1,7 +1,5 @@
 # Gulp Boilerplate
 
-[Fork: gulp-boilerplate](https://travis-ci.org/cferdinandi/gulp-boilerplate)
-
 A boilerplate for building web projects with [Gulp](https://gulpjs.com/). Uses Gulp 4.x.
 
 **Features**
@@ -22,7 +20,7 @@ A boilerplate for building web projects with [Gulp](https://gulpjs.com/). Uses G
 
 ### Dependencies
 
-*__Note:__ if you've previously installed Gulp globally, run `npm rm --global gulp` to remove it. [Details here.](https://medium.com/gulpjs/gulp-sips-command-line-interface-e53411d4467)*
+*__Note:__ Whether you've previously installed Gulp globally or not, run **`npm rm --global gulp`** anyway and it will remove it if it if installed. [Reasons and details here.](https://medium.com/gulpjs/gulp-sips-command-line-interface-e53411d4467)*
 
 Make sure these are installed first.
 
@@ -32,7 +30,7 @@ Make sure these are installed first.
 ### Quick Start
 
 1. In bash/terminal/command line, `cd` into your project directory.
-2. Run `npm install` to install required files and dependencies.
+2. Run `npm install` to install required files and dependencies from *`package.json`*.
 3. When it's done installing, run one of the task runners to get going:
 	- `gulp` manually compiles files.
 	- `gulp watch` automatically compiles files and applies changes using [BrowserSync](https://browsersync.io/) when you make changes to your source files.
@@ -58,18 +56,18 @@ Some information is automatically pulled in from it and added to a header that's
 
 ```json
 {
-	"name": "project-name",
-	"version": "0.0.1",
-	"description": "A description for your project.",
-	"main": "./dist/your-main-js-file.js",
+	"name": "Project-Name",
+	"version": "2020.1.0-dev",
+	"description": "Description",
+	"main": "./dist/js/index.js",
 	"author": {
-		"name": "YOUR NAME",
-		"url": "http://link-to-your-website.com"
+		"name": "Your Full Name",
+		"url": "Your website URL"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "http://link-to-your-git-repo.com"
+		"url": "Project repository URL"
 	},
 	"devDependencies": {}
 }
@@ -146,7 +144,6 @@ var paths = {
 	output: 'dist/',
 	scripts: {
 		input: 'src/js/*',
-		// polyfills: '!src/js/*.polyfill.js',
 		polyfills: '.polyfill.js',
 		output: 'dist/js/'
 	},
@@ -159,7 +156,7 @@ var paths = {
 		output: 'dist/svg/'
 	},
 	copy: {
-		input: 'src/copy/*',
+		input: 'src/copy/**/*',
 		output: 'dist/'
 	},
 	reload: './dist/'
@@ -178,14 +175,13 @@ You can change what's included under the `banner` variable.
  */
 
 var banner = {
-	full:
+	main:
 		'/*!\n' +
 		' * <%= package.name %> v<%= package.version %>\n' +
-		' * <%= package.description %>\n' +
 		' * (c) ' + new Date().getFullYear() + ' <%= package.author.name %>\n' +
 		' * <%= package.license %> License\n' +
 		' * <%= package.repository.url %>\n' +
-		' */\n\n',
+		' */\n',
 	min:
 		'/*!' +
 		' <%= package.name %> v<%= package.version %>' +

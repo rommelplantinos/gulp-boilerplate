@@ -48,6 +48,13 @@ var paths = {
 
 var banner = {
 	main:
+		'/*!\n' +
+		' * <%= package.name %> v<%= package.version %>\n' +
+		' * (c) ' + new Date().getFullYear() + ' <%= package.author.name %>\n' +
+		' * <%= package.license %> License\n' +
+		' * <%= package.repository.url %>\n' +
+		' */\n',
+	min:
 		'/*!' +
 		' <%= package.name %> v<%= package.version %>' +
 		' | (c) ' + new Date().getFullYear() + ' <%= package.author.name %>' +
@@ -62,7 +69,7 @@ var banner = {
  */
 
 // General
-var {gulp, src, dest, watch, series, parallel} = require('gulp');
+var { gulp, src, dest, watch, series, parallel } = require('gulp');
 var del = require('del');
 var flatmap = require('gulp-flatmap');
 var lazypipe = require('lazypipe');
@@ -112,13 +119,15 @@ var cleanDist = function (done) {
 
 // Repeated JavaScript tasks
 var jsTasks = lazypipe()
-	.pipe(header, banner.main, {package: package})
+	// Generate a normal version
+	.pipe(header, banner.main, { package: package })
 	.pipe(optimizejs)
 	.pipe(dest, paths.scripts.output)
-	.pipe(rename, {suffix: '.min'})
+	// Generate minimized version
+	.pipe(rename, { suffix: '.min' })
 	.pipe(uglify)
 	.pipe(optimizejs)
-	.pipe(header, banner.main, {package: package})
+	.pipe(header, banner.min, { package: package })
 	.pipe(dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
@@ -129,7 +138,7 @@ var buildScripts = function (done) {
 
 	// Run tasks on script files
 	return src(paths.scripts.input)
-		.pipe(flatmap(function(stream, file) {
+		.pipe(flatmap(function (stream, file) {
 
 			// If the file is a directory
 			if (file.isDirectory()) {
@@ -181,36 +190,56 @@ var lintScripts = function (done) {
 };
 
 // Process, lint, and minify Sass files
-var buildStyles = function (done) {
+var buildStylesNormal = function (done) {
 
 	// Make sure this feature is activated before running
 	if (!settings.styles) return done();
 
 	// Run tasks on all Sass files
 	return src(paths.styles.input)
-		.pipe(sass({
-			outputStyle: 'expanded',
-			sourceComments: true
-		}))
+		.pipe(
+			sass({
+				outputStyle: 'expanded',
+				sourceComments: true
+			}).on('error', sass.logError)
+		)
 		.pipe(postcss([
 			prefix({
 				cascade: true,
 				remove: true
 			})
 		]))
-		.pipe(header(banner.main, {package: package}))
-		.pipe(dest(paths.styles.output))
-		.pipe(rename({suffix: '.min'}))
+		.pipe(header(banner.main, { package: package }))
+		.pipe(dest(paths.styles.output));
+
+};
+
+var buildStylesMin = function (done) {
+
+	// Make sure this feature is activated before running
+	if (!settings.styles) return done();
+
+	// Run tasks on all Sass files
+	return src(paths.styles.input)
+		.pipe(sass().on('error', sass.logError))
 		.pipe(postcss([
+			prefix({
+				cascade: true,
+				remove: true
+			}),
 			minify({
 				discardComments: {
 					removeAll: true
 				}
 			})
 		]))
+		.pipe(header(banner.min, { package: package }))
+		.pipe(rename({ suffix: '.min' }))
 		.pipe(dest(paths.styles.output));
 
 };
+
+var buildStyles = parallel(buildStylesNormal, buildStylesMin);
 
 // Optimize SVG files
 var buildSVGs = function (done) {
